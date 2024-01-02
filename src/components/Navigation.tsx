@@ -7,12 +7,15 @@ import {RootStackParamList, RootTabsParamList} from '../types/navigation';
 import Baby from '../screens/Baby';
 import Discover from '../screens/Discover';
 import NotFound from '../screens/NotFound';
+import SignIn from '../screens/SignIn';
 import {navigationRef} from '../router';
 import {useAuthContext} from '../services/context/auth';
 import AxiosProvider from '../services/provider/axios';
 import Today from '../screens/Today';
 import Me from '../screens/Me';
 import constants from '../constants';
+import Recovery from '../screens/Recovery';
+import SignUp from '../screens/SignUp';
 
 enableScreens();
 
@@ -22,9 +25,12 @@ const Tab = createMaterialBottomTabNavigator<RootTabsParamList>();
 function Stack() {
   return (
     <RootStack.Navigator
-      initialRouteName="Inside"
+      initialRouteName="SignIn"
       screenOptions={{headerShown: false}}>
       <RootStack.Screen name="Inside" component={Tabs} />
+      <RootStack.Screen name="SignIn" component={SignIn} />
+      <RootStack.Screen name="SignUp" component={SignUp} />
+      <RootStack.Screen name="Recovery" component={Recovery} />
       <RootStack.Screen name="NotFound" component={NotFound} />
     </RootStack.Navigator>
   );

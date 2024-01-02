@@ -10,6 +10,9 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type RootStackParamList = {
   Inside: NavigatorScreenParams<RootTabsParamList>;
   NotFound: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  Recovery: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
