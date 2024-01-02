@@ -15,6 +15,7 @@ import Today from '../screens/Today';
 import Me from '../screens/Me';
 import constants from '../constants';
 import Recovery from '../screens/Recovery';
+import SignUp from '../screens/SignUp';
 
 enableScreens();
 
@@ -28,6 +29,7 @@ function Stack() {
       screenOptions={{headerShown: false}}>
       <RootStack.Screen name="Inside" component={Tabs} />
       <RootStack.Screen name="SignIn" component={SignIn} />
+      <RootStack.Screen name="SignUp" component={SignUp} />
       <RootStack.Screen name="Recovery" component={Recovery} />
       <RootStack.Screen name="NotFound" component={NotFound} />
     </RootStack.Navigator>

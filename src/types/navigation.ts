@@ -11,6 +11,7 @@ export type RootStackParamList = {
   Inside: NavigatorScreenParams<RootTabsParamList>;
   NotFound: undefined;
   SignIn: undefined;
+  SignUp: undefined;
   Recovery: undefined;
 };
 

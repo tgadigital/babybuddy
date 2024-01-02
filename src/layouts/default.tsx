@@ -1,12 +1,16 @@
 import React, {PropsWithChildren} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ViewProps} from 'react-native';
 import constants from '../constants';
 
-interface Props extends PropsWithChildren {}
+interface Props extends PropsWithChildren, ViewProps {}
 
-const DefaultLayout = function ({children, ...props}: Props) {
+const DefaultLayout = function ({
+  children,
+  style: customStyle,
+  ...props
+}: Props) {
   return (
-    <View {...props} style={style.container}>
+    <View {...props} style={[style.container, customStyle]}>
       {children}
     </View>
   );
