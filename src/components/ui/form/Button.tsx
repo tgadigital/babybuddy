@@ -45,11 +45,11 @@ const FormButton = function ({
 
 const style = StyleSheet.create({
   button: {
-    height: 48,
     borderRadius: 24,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   prependElement: {
     marginRight: 10,
