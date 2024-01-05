@@ -1,106 +1,70 @@
-/* eslint-disable react-native/no-inline-styles */
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {FC, useState} from 'react';
-import {Text, TouchableOpacity, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {RootStackParamList} from '../types/navigation';
 import FormRow from '../components/ui/form/Row';
-import Title from '../components/Title';
 import FormButton from '../components/ui/form/Button';
-import FormInput from '../components/ui/form/Input';
-import FormLink from '../components/ui/form/Link';
 import FormSeparator from '../components/ui/form/Separator';
-import FormSwitch from '../components/ui/form/Switch';
 import DefaultLayout from '../layouts/default';
 import {navigate} from '../router';
 import images from '../images';
-import FormText from '../components/ui/form/Text';
+import Slider from '../components/ui/Slider.tsx';
+import LoginForm from '../components/Auth/LoginForm.tsx';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignIn', 'Inside'>;
 
 const SignIn: FC<Props> = () => {
-  const [isSecureInput, setIsSecureInput] = useState(true);
-  const [form, setForm] = useState({
-    isLoading: false,
-    values: {
-      email: '',
-      password: '',
-      isRemember: false,
-    },
-    errors: {
-      email: '',
-      password: '',
-    },
-  });
-
-  const showPasswordButton = () => (
-    <TouchableOpacity onPress={() => setIsSecureInput(!isSecureInput)}>
-      <Text>{isSecureInput ? 'eye' : 'not-eye'}</Text>
-    </TouchableOpacity>
-  );
-
   const signIn = () => {};
+
+  const [showSlider, setShowSlider] = useState(true);
+
+  const handleSignIn = () => {
+    setShowSlider(!showSlider);
+  };
 
   return (
     <DefaultLayout style={style.page}>
-      <View>
-        <Title title="Sign in to Baby Buddy" />
-        <Text>{form.values.email}</Text>
-        <FormInput
-          placeholder="E-mail address"
-          defaultValue={form.values.email}
-          onChangeText={email =>
-            setForm(prev => ({...prev, values: {...prev.values, email}}))
-          }
-          errorText={form.errors.email}
-        />
-        <FormInput
-          placeholder="Password"
-          defaultValue={form.values.password}
-          onChangeText={password =>
-            setForm(prev => ({...prev, values: {...prev.values, password}}))
-          }
-          secureTextEntry={isSecureInput}
-          errorText={form.errors.password}
-          appendElement={showPasswordButton()}
-        />
-        <FormRow align="justify">
-          <FormSwitch
-            selected={form.values.isRemember}
-            title="Keep me signed in"
-            onPress={() =>
-              setForm(() => ({
-                ...form,
-                values: {...form.values, isRemember: !form.values.isRemember},
-              }))
-            }
+      <View style={style.container}>
+        {showSlider ? (
+          <Slider
+            autoScroll={true}
+            loop={true}
+            scrollInterval={3000}
+            slides={images.nhs}
           />
-          <FormLink
-            title="Forgot Password?"
-            onPress={() => navigate('Recovery')}
-          />
-        </FormRow>
-        <FormButton title="SIGN IN" onPress={signIn} />
-        <FormSeparator title="OR" />
-        <FormButton
-          variant="blue"
-          title="Continue to NHS login"
-          prependElement={
-            <Image source={images.nhs} style={{width: 98, height: 37}} />
-          }
-        />
+        ) : (
+          <LoginForm onSignIn={handleSignIn} />
+        )}
       </View>
-      <FormRow>
-        <FormText>DON'T HAVE AN ACCOUNT? </FormText>
-        <FormLink title="SIGN UP" onPress={() => navigate('SignUp')} />
+      <FormRow align="justify">
+        <FormButton
+          variant={'secondary'}
+          title="SIGN IN"
+          onPress={handleSignIn}
+        />
+        <FormButton title="SIGN UP" onPress={() => navigate('SignUp')} />
       </FormRow>
+      <FormSeparator title="OR" />
+      <FormButton
+        variant="blue"
+        title="Continue to NHS login"
+        prependElement={<Image source={images.nhs} style={style.imageStyle} />}
+      />
     </DefaultLayout>
   );
 };
 
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   page: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  imageStyle: {
+    width: 98,
+    height: 37,
   },
 });
 
